@@ -1,15 +1,11 @@
-interface TreeViewProps {
-  title: string | React.ReactChild;
-  children?: React.ReactNode;
+interface TreeViewProps extends React.HTMLAttributes<HTMLUListElement> {
+  children: React.ReactNode;
 }
 
 const TreeView = (props: TreeViewProps) => {
-  return (
-    <ul>
-      <span>{props.title}</span>
-      {props.children}
-    </ul>
-  );
+  const { children, ...rest } = props;
+
+  return <ul {...rest}>{children}</ul>;
 };
 
 export { TreeView };

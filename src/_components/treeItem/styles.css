@@ -1,0 +1,22 @@
+.rat-tree-item-root {
+  list-style-type: none;
+  margin-inline-start: 10px;
+}
+
+.rat-tree-item-label {
+  display: flex;
+  align-items: center;
+}
+
+.rat-tree-item-not-expanded * {
+  display: none;
+}
+
+.rat-tree-item-icon {
+  transition: all ease 0.3s;
+}
+
+.rat-tree-item-icon-expanded {
+  transform: rotate(90deg);
+  transition: all ease 0.3s;
+}
