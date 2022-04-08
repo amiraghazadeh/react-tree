@@ -1,6 +1,7 @@
 .rat-tree-item-root {
   list-style-type: none;
   margin-inline-start: 10px;
+  padding: 2px 1px;
 }
 
 .rat-tree-item-label {
@@ -8,15 +9,21 @@
   align-items: center;
 }
 
+.rat-tree-item-label.has-children {
+  cursor: pointer;
+}
+
 .rat-tree-item-not-expanded * {
   display: none;
 }
 
 .rat-tree-item-icon {
+  width: 18px;
+  height: 18px;
   transition: all ease 0.3s;
 }
 
-.rat-tree-item-icon-expanded {
+.rat-tree-item-icon.expanded {
   transform: rotate(90deg);
   transition: all ease 0.3s;
 }

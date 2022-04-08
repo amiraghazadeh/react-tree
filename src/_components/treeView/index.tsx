@@ -1,6 +1,4 @@
-interface TreeViewProps extends React.HTMLAttributes<HTMLUListElement> {
-  children: React.ReactNode;
-}
+import { TreeViewProps } from "./types";
 
 const TreeView = (props: TreeViewProps) => {
   const { children, ...rest } = props;

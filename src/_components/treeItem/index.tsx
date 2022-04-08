@@ -2,12 +2,8 @@ import { useCallback, useState } from "react";
 import TreeView from "_components/treeView";
 import ChevronIcon from "_assets/icons/chevron.svg";
 import { v4 as uuid } from "uuid";
+import { TreeItemProps } from "./types";
 import "./styles.css";
-
-interface TreeItemProps {
-  label: React.ReactNode;
-  children?: React.ReactNode;
-}
 
 const TreeItem = (props: TreeItemProps) => {
   const { label, children } = props;
@@ -17,38 +13,28 @@ const TreeItem = (props: TreeItemProps) => {
   const generateId = `tree-item-${id}`;
 
   const handleExpand = useCallback(
-    (e: React.MouseEvent<HTMLLIElement>) => {
+    (e: React.MouseEvent<HTMLDivElement>) => {
       if (children) {
-        // console.log("inja", children, expanded);
-
         e.stopPropagation();
-        setExpand(!expanded);
+        setExpand((prev) => !prev);
       }
     },
-    [children, expanded]
+    [children]
   );
 
   return (
-    <li
-      key={generateId}
-      className="rat-tree-item-root"
-      onClick={(e) => handleExpand(e)}
-    >
-      <div className="rat-tree-item-label">
-        {children && (
-          <img
-            src={ChevronIcon}
-            alt=""
-            className={`rat-tree-item-icon ${
-              expanded && "rat-tree-item-icon-expanded"
-            }`}
-          />
-        )}
+    <li key={generateId} className="rat-tree-item-root">
+      <div
+        className={`rat-tree-item-label ${children && "has-children"}`}
+        onClick={handleExpand}
+      >
+        <span className={`rat-tree-item-icon ${expanded && "expanded"}`}>
+          {children && <img src={ChevronIcon} alt="" />}
+        </span>
         <span>{label}</span>
       </div>
       {children && (
         <TreeView className={!expanded ? "rat-tree-item-not-expanded" : ""}>
-          {console.log(label)}
           {children}
         </TreeView>
       )}
