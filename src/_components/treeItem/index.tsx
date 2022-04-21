@@ -1,45 +1,65 @@
 import { useCallback, useState } from "react";
-import TreeView from "_components/treeView";
-import ChevronIcon from "_assets/icons/chevron.svg";
 import { v4 as uuid } from "uuid";
+import { ReactComponent as ChevronIcon } from "_assets/icons/chevron.svg";
+import { TreeBranch } from "_components/treeBranch";
 import { TreeItemProps } from "./types";
 import "./styles.css";
 
 const TreeItem = (props: TreeItemProps) => {
-  const { label, children } = props;
-  const id = uuid();
-  const [expanded, setExpand] = useState<boolean>(false);
+  const { label, expandIcon, expandedIcon, children } = props;
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [animation, setAnimation] = useState<string>("fadeInDown");
 
+  const id = uuid();
   const generateId = `tree-item-${id}`;
 
-  const handleExpand = useCallback(
+  const icon = expanded ? expandedIcon : expandIcon;
+
+  const handleLabelClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      if (children) {
-        e.stopPropagation();
-        setExpand((prev) => !prev);
+      e.stopPropagation();
+      if (!expanded) {
+        setExpanded(true);
+        setAnimation("fadeInDown");
+      } else {
+        setAnimation("fadeOutUp");
       }
     },
-    [children]
+    [expanded]
+  );
+
+  const handleAnimation = useCallback(
+    (e: React.AnimationEvent<HTMLDivElement>) => {
+      if (e.animationName === "fadeOutUp") setExpanded(false);
+    },
+    []
   );
 
   return (
-    <li key={generateId} className="rat-tree-item-root">
+    <li key={generateId}>
       <div
-        className={`rat-tree-item-label ${children && "has-children"}`}
-        onClick={handleExpand}
+        className="rat-item-label"
+        onClick={handleLabelClick}
+        style={children ? { cursor: "pointer" } : undefined}
       >
-        <span className={`rat-tree-item-icon ${expanded && "expanded"}`}>
-          {children && <img src={ChevronIcon} alt="" />}
-        </span>
-        <span>{label}</span>
+        <span className="icon">{children && icon}</span>
+        <span className="title">{label}</span>
       </div>
       {children && (
-        <TreeView className={!expanded ? "rat-tree-item-not-expanded" : ""}>
-          {children}
-        </TreeView>
+        <div
+          className={`rat-item-content animation animation-${animation}`}
+          onAnimationEnd={handleAnimation}
+        >
+          {expanded && <TreeBranch>{children}</TreeBranch>}
+        </div>
       )}
     </li>
   );
+};
+
+TreeItem.defaultProps = {
+  expandIcon: <ChevronIcon />,
+  expandedIcon: <ChevronIcon style={{ transform: "rotate(0deg)" }} />,
 };
 
 export { TreeItem };

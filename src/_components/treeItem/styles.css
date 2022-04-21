@@ -1,29 +1,55 @@
-.rat-tree-item-root {
+/* .rat-tree-item-root {
   list-style-type: none;
   margin-inline-start: 10px;
   padding: 2px 1px;
 }
 
-.rat-tree-item-label {
+.rat-tree-item-branch {
   display: flex;
   align-items: center;
 }
 
-.rat-tree-item-label.has-children {
+.rat-tree-item-branch.has-children {
   cursor: pointer;
 }
 
-.rat-tree-item-not-expanded * {
-  display: none;
+.rat-tree-item-branch .icon {
+  flex: 0;
+  min-width: 18px;
+  min-height: 18px;
 }
 
-.rat-tree-item-icon {
-  width: 18px;
-  height: 18px;
-  transition: all ease 0.3s;
-}
-
-.rat-tree-item-icon.expanded {
+.rat-tree-item-branch .icon .expanded {
   transform: rotate(90deg);
   transition: all ease 0.3s;
+}
+
+.rat-tree-item-branch .label {
+  flex: 1;
+}
+
+.rat-tree-view-not-show * {
+  display: none;
+  transition: all ease 0.3s;
+} */
+
+.rat-item-label {
+  display: flex;
+  align-items: center;
+  padding: 1px;
+}
+
+.rat-item-label .icon {
+  display: flex;
+  min-width: 18px;
+  min-height: 18px;
+}
+
+.rat-item-label .title {
+  flex: 1;
+}
+
+.rat-item-content {
+  padding-left: 20px;
+  list-style: none;
 }

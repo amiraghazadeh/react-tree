@@ -1,9 +1,9 @@
-import TreeView from "./treeView";
+import TreeBranch from "./treeBranch";
 import TreeItem from "./treeItem";
 
 const Tree = () => {
   return (
-    <TreeView>
+    <TreeBranch>
       <TreeItem label="child1"></TreeItem>
       <TreeItem label="child2">
         <TreeItem label="child21">
@@ -19,7 +19,7 @@ const Tree = () => {
       <TreeItem label="child6"></TreeItem>
       <TreeItem label="child7"></TreeItem>
       <TreeItem label="child8"></TreeItem>
-    </TreeView>
+    </TreeBranch>
   );
 };
 
